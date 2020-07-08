@@ -22,10 +22,15 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require('../../config.php');
+
+$config = get_config('block_superframe');
+
 $PAGE->set_course($COURSE);
 $PAGE->set_url('/blocks/superframe/view.php');
 $PAGE->set_heading($SITE->fullname);
-$PAGE->set_pagelayout('course');
+
+$PAGE->set_pagelayout($config->pagelayout);
+
 $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
 require_login();
@@ -33,19 +38,19 @@ require_login();
 // Start output to browser.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-echo '<br>' . fullname($USER) . '<br>';
+echo '<br><h3>' . fullname($USER) . '</h3><br>';
 echo '<br>' . $OUTPUT->user_picture($USER) . '<br>';
 
 //IFRAME CONTENT
-$url='https://www.youtube.com/embed/5NCH29cPQt4';
-$height = '600px';
-$width = '900px';
-$class = 'superframe_test_class';
+//$url='https://www.youtube.com/embed/5NCH29cPQt4';
+//$height = '600px';
+//$width = '900px';
+//$class = 'superframe_test_class';
 $attributes = [
-    'src'=> $url,
-    'width'=> $width,
-    'height'=> $height,
-    'class' => $class,
+    'src'=> $config->url,
+    'width'=> $config->width . 'px',
+    'height'=> $config->height . 'px',
+    'class' => $config->class,
     'allowfullscreen'=>'allowfullscreen'
 ];
 echo html_writer::start_tag('div', array('class'=>"col-md-12 offset-md-12 text-center pt-4"));

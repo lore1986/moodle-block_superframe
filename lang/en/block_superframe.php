@@ -40,3 +40,22 @@ $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle'
 
 $string['message'] =  'footer message';
 $string['viewlink'] = 'link to page view';
+
+
+$string['superframe_name_admin'] = 'Superframe edit settings';
+$string['superframe_description_admin'] = 'Customize superframe settings';
+
+$string['url_setting'] = 'iFrame URL';
+$string['url_setting_desc'] = 'Insert URL here';
+
+$string['page_layout'] = 'Page Layout';
+$string['page_layout_desc'] = 'Choose how you want to display the page';
+
+$string['height_setting'] = 'Height';
+$string['height_setting_desc'] = 'How tall will be your frame';
+
+$string['width_setting'] = 'Width';
+$string['width_setting_desc'] = 'How large will be your frame';
+
+$string['class_setting'] = 'CSS Class';
+$string['class_setting_desc'] = 'Custom CSS class for the frame';
