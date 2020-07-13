@@ -59,3 +59,11 @@ $string['width_setting_desc'] = 'How large will be your frame';
 
 $string['class_setting'] = 'CSS Class';
 $string['class_setting_desc'] = 'Custom CSS class for the frame';
+
+
+$string['size'] = 'Size of the Frame';
+$string['custom'] = 'Custom';
+$string['small'] = 'Small';
+$string['medium'] = 'Medium';
+$string['large'] = 'Large';
+

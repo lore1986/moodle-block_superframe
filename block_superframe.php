@@ -77,10 +77,20 @@ class block_superframe extends block_base {
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = "<p>" .get_string('message', 'block_superframe'). "</p>";
-        $this->content->text .= '<br> <a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' . 
-                    get_string('viewlink', 'block_superframe') . '<a>';
-        //$this->content->text = get_string('welcomeuser', 'block_superframe',
-          //      $USER);
+                                                                                            //$this->content->text .= '<br> <a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' . 
+                                                                                                        //get_string('viewlink', 'block_superframe') . '<a>';
+        $this->content->text .= get_string('welcomeuser', 'block_superframe',
+               $USER);                       
+
+        $blockid = $this->instance->id; // Add the block id to the Moodle URL for the view page.
+
+        $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
+
+        //$this->content->text .= '<p>' . html_writer::link($url, get_string('viewlink', 'block_superframe')) . '</p>';
+
+        $urllink= html_writer::link($url, get_string('viewlink', 'block_superframe'));
+        
+        $this->content->text .= '<p>' . $urllink . '</p>';
 
         return $this->content;
     }
