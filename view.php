@@ -22,6 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 require('../../config.php');
+
 $blockid = required_param('blockid', PARAM_INT);
 
 $def_config = get_config('block_superframe'); //this is important
@@ -36,6 +37,8 @@ $PAGE->set_title(get_string('pluginname', 'block_superframe'));
 $PAGE->navbar->add(get_string('pluginname', 'block_superframe'));
 
 require_login();
+$context = context_block::instance($blockid);
+require_capability('block/superframe:seeviewpage', $context); //here i specify that if user doesn't have capability cannot see THIS page
 
 
 // Get the instance configuration data from the database. 

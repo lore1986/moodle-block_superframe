@@ -37,6 +37,7 @@ $string['welcomeuser'] = 'Welcome {$a->firstname} {$a->lastname}';
 // Capability strings
 $string['superframe:addinstance'] = 'Add a new Super frame block';
 $string['superframe:myaddinstance'] = 'Add a new Super frame block to my moodle';
+$string['superframe:seeviewpage'] = 'Access the view page';
 
 $string['message'] =  'footer message';
 $string['viewlink'] = 'link to page view';
@@ -66,4 +67,6 @@ $string['custom'] = 'Custom';
 $string['small'] = 'Small';
 $string['medium'] = 'Medium';
 $string['large'] = 'Large';
+
+
 
