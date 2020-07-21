@@ -85,8 +85,9 @@ class block_superframe extends block_base {
 
         $blockid = $this->instance->id; // Add the block id to the Moodle URL for the view page.
         $context = context_block::instance($blockid); //check context
+        $courseid = $this->page->course->id; //course id
 
-        if (require_capability('block/superframe:seeviewpage', $context)){
+        if (has_capability('block/superframe:seeviewpage', $context)){
 
         $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
 
@@ -98,6 +99,12 @@ class block_superframe extends block_base {
         
         }
 
+        if(has_capability('block/superframe:seeuserslist', $context)){
+            $users = self::get_course_users($courseid);
+            foreach ($users as $user) {
+                $this->content->text .='<li>' . $user->firstname . '</li>';
+            }
+        }
         return $this->content;
     }
     /**
@@ -123,6 +130,22 @@ class block_superframe extends block_base {
      */
     function has_config() {
         return true;
+    }
+
+    private static function get_course_users($courseid) {
+        global $DB;
+
+        $sql = "SELECT u.id, u.firstname
+                FROM {course} as c
+                JOIN {context} as x ON c.id = x.instanceid
+                JOIN {role_assignments} as r ON r.contextid = x.id
+                JOIN {user} AS u ON u.id = r.userid
+               WHERE c.id = :courseid
+                 AND r.roleid = :roleid";
+
+        $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
+
+        return $records;
     }
 
 }

@@ -68,5 +68,17 @@ $capabilities = array(
             'student' => CAP_ALLOW,
             'guest' => CAP_PREVENT
         )
+    ),
+
+    'block/superframe:seeuserslist' =>array(
+        'riskbitmask' => RISK_SPAM,
+        'captype' =>'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW,
+            'student' => CAP_PROHIBIT,
+            'guest' => CAP_PROHIBIT        
+            )
     )
 );
