@@ -77,11 +77,16 @@ switch ($config->size) {
         break;
 }
 
+$renderer = $PAGE->get_renderer('block_superframe');
+$renderer->display_view_page($url, $width, $height);
+
+/*tied up no need this anymore
 // Start output to browser.
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
 echo '<br><h3>' . fullname($USER) . '</h3><br>';
 echo '<br>' . $OUTPUT->user_picture($USER) . '<br>';
+
 
 
 $attributes = [
@@ -99,3 +104,4 @@ echo html_writer::end_tag('div');
 
 //send footer out to browser
 echo $OUTPUT->footer();
+*/
