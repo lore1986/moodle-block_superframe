@@ -61,7 +61,7 @@ class block_superframe extends block_base {
      * Add some text content to our block.
      */
     function get_content() {
-        global $USER, $CFG;
+        global $USER, $CFG, $OUTPUT;
 
         // Do we have any content?
         if ($this->content !== null) {
@@ -73,7 +73,10 @@ class block_superframe extends block_base {
             return $this->content;
         }
 
-        
+        $options = array( 
+            'visibletoscreenreaders' => false,
+            'includefullname' => true,          // New in Moodle 3.4. Setting to true will render the user's full name beside it. Defaults to false.
+        );
 
         // OK let's add some content.
         $this->content = new stdClass();
@@ -100,10 +103,15 @@ class block_superframe extends block_base {
         }
 
         if(has_capability('block/superframe:seeuserslist', $context)){
+  
             $users = self::get_course_users($courseid);
+
             foreach ($users as $user) {
-                $this->content->text .='<li>' . $user->firstname . '</li>';
+                $studentlist = '<li>' . $OUTPUT->user_picture($user, $options) . '</li>';
             }
+
+            $this->content->text .= html_writer::tag('ul', $studentlist, array('class'=>'studentlist'));
+
         }
         return $this->content;
     }
@@ -135,7 +143,7 @@ class block_superframe extends block_base {
     private static function get_course_users($courseid) {
         global $DB;
 
-        $sql = "SELECT u.id, u.firstname
+        $sql = "SELECT u.id, u.firstname, u.lastname
                 FROM {course} as c
                 JOIN {context} as x ON c.id = x.instanceid
                 JOIN {role_assignments} as r ON r.contextid = x.id
@@ -144,7 +152,7 @@ class block_superframe extends block_base {
                  AND r.roleid = :roleid";
 
         $records = $DB->get_records_sql($sql, ['courseid' => $courseid, 'roleid' => 5]);
-
+        
         return $records;
     }
 

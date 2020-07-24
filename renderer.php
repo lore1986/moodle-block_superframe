@@ -26,25 +26,28 @@
 
 function display_view_page($url, $width, $height) {
 
-        global $USER;
+        global $USER, $DB;
 
-       $data = new stdClass();
+        $data = new stdClass();
+        
+        $u = $DB->get_record_select('user',"id ='$USER->id'",null, user_picture::fields());
 
-       // Page heading and iframe data.
-       $data->heading = get_string('pluginname', 'block_superframe');
-       $data->url = $url;
-       $data->height = $height;
-       $data->width = $width;
+        // Page heading and iframe data.
+        $data->heading = get_string('pluginname', 'block_superframe');
+        $data->url = $url;
+        $data->height = $height;
+        $data->width = $width;
         $data->name = $USER->firstname;
-        $data->userpicture = 'http://localhost/pluginfile.php/5/user/icon/boost/f2?'.$USER->picture;
+        $data->pic = $this->output->user_picture($u);
+        
 
-       // Start output to browser.
-       echo $this->output->header();
+        // Start output to browser.
+        echo $this->output->header();
     
-       // Render the data in a Mustache template.
-       echo $this->render_from_template('block_superframe/frame', $data);
+        // Render the data in a Mustache template.
+        echo $this->render_from_template('block_superframe/frame', $data);
 
-       // Finish the page.
-       echo $this->output->footer();
+        // Finish the page.
+        echo $this->output->footer();
    }
 }
