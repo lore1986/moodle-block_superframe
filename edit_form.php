@@ -32,6 +32,7 @@ class block_superframe_edit_form extends block_edit_form {
         // URL element - use admin setting for default.
         $config =get_config('block_superframe'); //get_config 
         
+        
         $mform->addElement('text', 'config_url',
                 get_string('url_setting', 'block_superframe'));
         $mform->setDefault('config_url', $config->url);

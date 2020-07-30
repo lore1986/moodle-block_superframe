@@ -62,6 +62,7 @@ class block_superframe extends block_base {
      */
     function get_content() {
         global $USER, $CFG, $OUTPUT;
+        $renderer = $this->page->get_renderer('block_superframe');
 
         // Do we have any content?
         if ($this->content !== null) {
@@ -73,32 +74,18 @@ class block_superframe extends block_base {
             return $this->content;
         }
 
-        $options = array( 
-            'visibletoscreenreaders' => false,
-            'includefullname' => true,          // New in Moodle 3.4. Setting to true will render the user's full name beside it. Defaults to false.
-        );
-
         // OK let's add some content.
         $this->content = new stdClass();
         $this->content->footer = "<p>" .get_string('message', 'block_superframe'). "</p>";
-                                                                                            //$this->content->text .= '<br> <a href="' . $CFG->wwwroot . '/blocks/superframe/view.php">' . 
-                                                                                                        //get_string('viewlink', 'block_superframe') . '<a>';
-        $this->content->text .= get_string('welcomeuser', 'block_superframe',
-               $USER);                       
-
+                                                                                            
         $blockid = $this->instance->id; // Add the block id to the Moodle URL for the view page.
         $context = context_block::instance($blockid); //check context
         $courseid = $this->page->course->id; //course id
-
-        if (has_capability('block/superframe:seeviewpage', $context)){
-
-        $url = new moodle_url('/blocks/superframe/view.php', ['blockid' => $blockid]);
-
-        //$this->content->text .= '<p>' . html_writer::link($url, get_string('viewlink', 'block_superframe')) . '</p>';
-
-        $urllink= html_writer::link($url, get_string('viewlink', 'block_superframe'));
         
-        $this->content->text .= '<p>' . $urllink . '</p>';
+        
+        if (has_capability('block/superframe:seeviewpage', $context)){
+            
+            $this->content->text .= $renderer->fetch_block_content($blockid);
         
         }
 
@@ -106,15 +93,15 @@ class block_superframe extends block_base {
   
             $users = self::get_course_users($courseid);
 
-            foreach ($users as $user) {
-                $studentlist = '<li>' . $OUTPUT->user_picture($user, $options) . '</li>';
-            }
+            $this->content->text .= $renderer->render_users_on_block($users);
 
-            $this->content->text .= html_writer::tag('ul', $studentlist, array('class'=>'studentlist'));
 
         }
+
         return $this->content;
     }
+
+    
     /**
      * This is a list of places where the block may or
      * may not be added.
@@ -143,7 +130,7 @@ class block_superframe extends block_base {
     private static function get_course_users($courseid) {
         global $DB;
 
-        $sql = "SELECT u.id, u.firstname, u.lastname
+        $sql = "SELECT u.id, u.firstname, u.lastname, u.imagealt, u.picture
                 FROM {course} as c
                 JOIN {context} as x ON c.id = x.instanceid
                 JOIN {role_assignments} as r ON r.contextid = x.id

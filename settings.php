@@ -23,8 +23,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ /*
  
+you don't need to worry about collecting data from a settings form.
+you don't need worry about saving form data in the database.
+Moodle does all of that for you .
 defined('MOODLE_INTERNAL') || die();
+
+*/
 
 //IFRAME CONTENT
 $url='https://www.youtube.com/embed/5NCH29cPQt4';

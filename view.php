@@ -43,9 +43,9 @@ require_capability('block/superframe:seeviewpage', $context); //here i specify t
 
 // Get the instance configuration data from the database. 
 // It's stored as a base 64 encoded serialized string.
-$configdata = $DB->get_field('block_instances', 'configdata', ['id' => $blockid]); //IMPORTANT
+$configdata = $DB->get_field('block_instances', 'configdata', ['id' => $blockid]); //IMPORTANT configuration data  of this block are fetch here
 
-// If an entry exists, convert to an object.
+// If an entry exists, convert to an object. IF LOCAL SETTINGS EXIST USE THOSE $config OTHERWISE USE ADMIN $def_config
 if ($configdata) {
     $config = unserialize(base64_decode($configdata)); //here takes configdata local of instance else below take admin settings
 } else {

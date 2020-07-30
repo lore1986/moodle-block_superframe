@@ -68,5 +68,6 @@ $string['small'] = 'Small';
 $string['medium'] = 'Medium';
 $string['large'] = 'Large';
 
+$string['returncourse'] = 'Back to the course';
 
 
