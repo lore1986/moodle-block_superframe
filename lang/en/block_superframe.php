@@ -70,4 +70,9 @@ $string['large'] = 'Large';
 
 $string['returncourse'] = 'Back to the course';
 
-
+$string['blockid'] = 'Block ID';
+$string['blockname'] = 'Block Name';
+$string['course'] = 'Course';
+$string['catname'] = 'Category';
+$string['poptext'] = 'Link to table of blocks';
+$string['tablecaption'] = 'Table of blocks';

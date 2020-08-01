@@ -21,8 +21,9 @@
  * Modified for use in MoodleBites for Developers Level 1 by Richard Jones & Justin Hunt
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+use \block_superframe\local\block_data;
 
- class block_superframe_renderer extends plugin_renderer_base {
+class block_superframe_renderer extends plugin_renderer_base {
 
 function display_view_page($url, $width, $height) {
 
@@ -43,7 +44,6 @@ function display_view_page($url, $width, $height) {
         $data->pic = $this->output->user_picture($u);
         $data->linkback = new moodle_url('/course/view.php',['id' => $course_id]); 
         $data->textlinkback =  get_string('returncourse', 'block_superframe');
-        
 
         // Start output to browser.
         echo $this->output->header();
@@ -72,9 +72,19 @@ function display_view_page($url, $width, $height) {
      
      $data_block->linkviewtext = $urllink;
      $data_block->linkview = $url;
+     
+     
+     
+     $data_block->getthedata = function(){
+        $records = block_data::fetch_block_data();
+        
+        return $this->display_block_table($records);
+     };
+      
+     // Add a link to the popup page:
+      $data_block->popurl = new moodle_url('/blocks/superframe/block_data.php');
+      $data_block->poptext = get_string('poptext', 'block_superframe');
 
-     
-     
      return $this->render_from_template('block_superframe/block', $data_block);
    }
 
@@ -102,4 +112,38 @@ function display_view_page($url, $width, $height) {
      return $this->render_from_template('block_superframe/block', $data_to_render);
 
    }
+
+   /**
+     * Function to display a table of records
+     * @param array the records to display.
+     * @return none.
+     */
+    public function display_block_table($records) {
+      // Prepare the data for the template.
+      $table = new stdClass();
+      // Table headers.
+      $table->tableheaders = [
+              get_string('blockid', 'block_superframe'),
+              get_string('blockname', 'block_superframe'),
+              get_string('course', 'block_superframe'),
+              get_string('catname', 'block_superframe'),
+      ];
+      // Build the data rows.
+      foreach ($records as $record) {
+          $data = array();
+          $data[] = $record->id;
+          $data[] = $record->blockname;
+          $data[] = $record->shortname;
+          $data[] = $record->catname;
+          $table->tabledata[] = $data;
+      }
+      // Start output to browser.
+      //echo $this->output->header();
+      // Call our template to render the data.
+      echo $this->render_from_template(
+              'block_superframe/block_table', $table);
+      // Finish the page.
+      //echo $this->output->footer();
+  }
+
 }

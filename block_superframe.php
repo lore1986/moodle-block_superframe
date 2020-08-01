@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use block_superframe\local\block_data;
+
 /**
  * Modified for use in MoodleBites for Developers Level 1
  * by Richard Jones & Justin Hunt.
@@ -94,7 +96,6 @@ class block_superframe extends block_base {
             $users = self::get_course_users($courseid);
 
             $this->content->text .= $renderer->render_users_on_block($users);
-
 
         }
 

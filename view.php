@@ -79,29 +79,3 @@ switch ($config->size) {
 
 $renderer = $PAGE->get_renderer('block_superframe');
 $renderer->display_view_page($url, $width, $height);
-
-/*tied up no need this anymore
-// Start output to browser.
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('pluginname', 'block_superframe'), 5);
-echo '<br><h3>' . fullname($USER) . '</h3><br>';
-echo '<br>' . $OUTPUT->user_picture($USER) . '<br>';
-
-
-
-$attributes = [
-    'src'=> $config->url,
-    'width'=> $width . 'px',
-    'height'=> $height . 'px',
-    'class' => $config->class,
-    'allowfullscreen'=>'allowfullscreen'
-];
-echo html_writer::start_tag('div', array('class'=>"col-md-12 offset-md-12 text-center pt-4"));
-echo html_writer::start_tag('iframe', $attributes);
-echo html_writer::end_tag('iframe');
-echo html_writer::end_tag('div');
-//echo 'I am some dummy content, get rid of me fast';
-
-//send footer out to browser
-echo $OUTPUT->footer();
-*/

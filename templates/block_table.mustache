@@ -1,0 +1,35 @@
+
+
+<div class="modal-header">
+  
+</div>
+<div class="modal-body">
+  <div class = "table-responsive">
+    <table class = "table table-striped">
+        {{! Using a get_string helper }}
+        <caption>
+            {{# str }} tablecaption, block_superframe {{/ str }} <!-- this is a call to language file -->
+        </caption>
+        <thead>
+            {{#tableheaders}}
+                <th>{{.}}</th>
+            {{/tableheaders}}
+        </thead>
+        <tbody>
+            {{#tabledata}}
+                <tr>
+                    {{#.}}
+                        <td>{{.}}</td>
+                    {{/.}}
+                </tr>
+            {{/tabledata}}
+        </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <div class="panel-footer">
+      <input type="button" value="Find Employee" id="empbutton" />
+      <div class="col-xs-10" id="lblstatus"></div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,32 @@
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
 <div>
     <h3>{{welcome}}</h3>
-    <a href="{{{linkview}}}">{{linkviewtext}}</a>
+    <ul class="list-group">
+        <a href="{{{linkview}}}">{{linkviewtext}}</a>
+        <a href="{{{popurl}}}" id="open-modal">{{poptext}}</a>
+
+        <!--<a href={{{popurl}}} target="_blank"> {{poptext}} -->
+        
+    </ul>
     {{#studentslist}}
          <ul class="list-group">
             <li class="list-group-item list-group-item-warning">{{{pic}}}{{name}}{{login}}</li>
         </ul>
     {{/studentslist}}
 </div>
+
+       <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $('#open-modal').on('click', function(e){
+        e.preventDefault();
+        $('#mymodal').modal('show').find('.modal-content').load($(this).attr('href'));
+        });
+        </script>
